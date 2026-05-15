@@ -1,0 +1,5 @@
+Codigo: 546323 Nombre: miguel Nota: 5.0 Estado: Aprueba
+Codigo: 654321 Nombre: paulina Nota: 4.5 Estado: Aprueba
+Codigo: 123456 Nombre: sara Nota: 4.0 Estado: Aprueba
+Codigo: 765432 Nombre: sofia Nota: 1.0 Estado: Reprueba
+Codigo: 232345 Nombre: vanessa Nota: 2.5 Estado: Reprueba
