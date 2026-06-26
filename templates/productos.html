@@ -1,34 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" >
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>Document</title>
 </head>
+
 <body>
-    {{ productos }}
-   <table class="table table-bordered table-striped">
-      <thead>
-        <tr>
-            <th>Codigo</th>
+  <div class="contenedor">
+
+    <div class="titulo">
+      <span>Gestión de Productos</span>
+      <span class="total">Total: {{ productos|length }}</span>
+    </div>
+
+    <div class="contenido">
+
+
+      <a href="/registro_producto" class="btn btn-success">+ Registrar Producto</a>
+
+
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Código</th>
             <th>Nombre</th>
-            <th>Precio</th>
-            <th>Categoria</th>
-        </tr>
-      </thead>
+            <th style="text-align:right;">Precio</th>
+            <th>Categoría</th>
+            <th class="text-center">Acciones</th>
+          </tr>
+        </thead>
 
-      <tbody>
-        {% for producto in productos %}
-        <tr>
-           <td>{{ producto.codigo }}</td>
-           <td>{{ producto.nombre }}</td>
-           <td>{{ producto.precio }}</td>
-           <td>{{ producto.categoria }}</td>
-        </tr>   
-        {% endfor %}
+        <tbody>
+          {% for producto in productos %}
+          <tr>
+            <td>{{ producto.codigo }}</td>
+            <td>{{ producto.nombre }}</td>
+            <td class="precio">$ {{ producto.precio }}</td>
+            <td>
+              <span class="badge">
+                {{ producto.categoria }}
+              </span>
+            </td>
+            <td class="text-center">
+              <a class="btn btn-warning btn-sn" href="/editar_producto/{{producto.codigo}}">Editar</a>
+              <a class="btn btn-danger btn-sn btn-eliminar" data-url="/eliminar_producto/{{producto.codigo}}">Eliminar</a>
 
-      </tbody>
-   </table>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+  <style>
+    /* Fondo */
+    body {
+      margin: 0;
+      background: #f4f6f9;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    /* Tarjeta principal */
+    .contenedor {
+      width: 95%;
+      margin: 30px auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+      overflow: hidden;
+    }
+
+    /* Barra azul */
+    .titulo {
+      background: #0d6efd;
+      color: #fff;
+      padding: 18px 25px;
+      font-size: 42px;
+      font-weight: 300;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Total amarillo */
+    .total {
+      background: #ffc107;
+      color: #222;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    /* Contenido */
+    .contenido {
+      padding: 25px;
+    }
+
+    /* Botón */
+    .btn {
+      background: #198754;
+      color: white;
+      padding: 14px 25px;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+      margin-bottom: 25px;
+    }
+
+    .btn:hover {
+      background: #157347;
+    }
+
+    /* Tabla */
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead {
+      background: #212529;
+    }
+
+    thead th {
+      color: white;
+      padding: 18px;
+      font-size: 20px;
+      text-align: left;
+      border: 1px solid #333;
+    }
+
+    tbody td {
+      padding: 18px;
+      font-size: 18px;
+      border: 1px solid #ececec;
+    }
+
+    tbody tr:nth-child(odd) {
+      background: #f5f5f5;
+    }
+
+    tbody tr:nth-child(even) {
+      background: white;
+    }
+
+    tbody tr:hover {
+      background: #eef5ff;
+    }
+
+    /* Precio */
+
+    .precio {
+      text-align: right;
+      font-weight: bold;
+    }
+
+    /* Categoría */
+
+    .badge {
+      background: #18c7f5;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 18px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const botonesEliminar = document.querySelectorAll(".btn-eliminar");
+    botonesEliminar.forEach(function (boton) {
+      boton.addEventListener("click", function (e) {
+          e.preventDefault();
+            const url = this.dataset.url;
+            Swal.fire({
+                title: "¿Está seguro?",
+                text: "Esta acción eliminará el producto de forma permanente.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#6c757d",
+                confirmButtonText: "Sí, eliminar",
+                cancelButtonText: "Cancelar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = url;
+                }
+            });
+        });
+        
+    });
+});
+  </script>
+
+  {% with mensajes = get_flashed_messages(with_categories=True) %}
+  {% if mensajes %}
+  {% for categoria, mensaje in mensajes %}
+
+  <script>
+    Swal.fire({
+      icon: "{{ categoria }}",
+      title: "{{ mensaje }}",
+      showConfirmButton: false,
+      timer: 2000
+    })    
+  </script>
+  
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+
 </body>
-</html> 
+
+</html>

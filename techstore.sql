@@ -1,4 +1,4 @@
-CREATE DATABASE techstore DEFAULT CHARACTER SET = 'utf8mb4';
+CREATE DATABASE techstore;
 
 USE techstore;
 
