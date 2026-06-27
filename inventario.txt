@@ -1,0 +1,16 @@
+
+Codigo: 5463
+Nombre: speed max
+Precio: $3000.0
+Cantidad: 15
+Categoria: vevida
+---------------------------
+
+
+Codigo: 12345
+Nombre: dorito
+Precio: $2700.0
+Cantidad: 35
+Categoria: comida
+---------------------------
+

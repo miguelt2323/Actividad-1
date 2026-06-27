@@ -1,0 +1,40 @@
+
+Documento: 1254236527
+Nombre: miguel
+Correo: migue@gmail.com
+Rol: Aprendiz
+Estado: Activo
+-----------------------------
+
+
+Documento: 423542352
+Nombre: paulina
+Correo: pau@gmail.com
+Rol: Instructor
+Estado: Activo
+-----------------------------
+
+
+Documento: 42543532
+Nombre: sara
+Correo: sara@gmail.com
+Rol: Aprendiz
+Estado: Inactivo
+-----------------------------
+
+
+Documento: 87973942
+Nombre: vanessa
+Correo: vane@gmail.com
+Rol: Instructor
+Estado: Inactivo
+-----------------------------
+
+
+Documento: 34564456
+Nombre: sofia
+Correo: sofi@gmail.com
+Rol: Administrador
+Estado: Activo
+-----------------------------
+
